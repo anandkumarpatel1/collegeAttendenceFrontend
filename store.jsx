@@ -1,11 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { teacherLoad, teacherLoginReducer, teacherLogout } from "./Reducer/Teacher";
+import {
+  addStudentReducer,
+  allStudentsReducer,
+  enrollNewStudentReducer,
+  enrolledStudentsReducer,
+  profileStudentsReducer,
+  searchStudentsReducer,
+  teacherLoginReducer,
+} from "./Reducer/Teacher";
 
 const Store = configureStore({
   reducer: {
-    teacherLogin: teacherLoginReducer,
-    teacherLoad: teacherLoad,
-    teacherLogout: teacherLogout
+    teacher: teacherLoginReducer,
+    student: addStudentReducer,
+    enrolledStudents: enrolledStudentsReducer,
+    allStudents: allStudentsReducer,
+    searchStudents: searchStudentsReducer,
+    studentProfile: profileStudentsReducer,
+    enrollNewStudent: enrollNewStudentReducer
   },
 });
 

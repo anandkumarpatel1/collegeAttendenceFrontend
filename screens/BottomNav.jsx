@@ -2,24 +2,33 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/AntDesign";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutTeacher } from "../Action/Teacher";
+import { logoutTeacher, searchStudents } from "../Action/Teacher";
 import { useNavigation } from "@react-navigation/native";
 
 const BottomNav = () => {
-
   const dispatch = useDispatch();
-  const navigation = useNavigation()
-  const [toggle, setToggle] = useState(false)
+  const navigation = useNavigation();
+  const [toggle, setToggle] = useState(false);
 
+  const logoutHandler = () => {
+    dispatch(logoutTeacher());
+    setToggle(false);
+  };
 
+  const HomeHandler = () =>{
+    navigation.navigate("TeacherHome")
+    setToggle(false);
+  }
 
-     const {isAuthenticated, loading} = useSelector((state) => state.teacherLoad)
-  
-
-  const logoutHandler = () =>{
-    dispatch(logoutTeacher())
-    navigation.navigate('Home')
+  const searchHandler = () =>{
+    dispatch(searchStudents())
+    navigation.navigate("Search")
     setToggle(false)
+  }
+
+  const ProfileHandler = () =>{
+    navigation.navigate("Profile")
+    setToggle(false);
   }
   return (
     <>
@@ -40,10 +49,13 @@ const BottomNav = () => {
         <TouchableOpacity style={styles.sidebarBtn} onPress={logoutHandler}>
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarBtn}>
+        <TouchableOpacity style={styles.sidebarBtn}  onPress={HomeHandler}>
           <Text style={styles.sidebarText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarBtn}>
+        <TouchableOpacity style={styles.sidebarBtn}  onPress={searchHandler}>
+          <Text style={styles.sidebarText}>Search</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.sidebarBtn} onPress={ProfileHandler}>
           <Text style={styles.sidebarText}>Profile</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.sidebarBtn}>
@@ -68,12 +80,18 @@ const BottomNav = () => {
         }}
       >
         <TouchableOpacity style={styles.navbtn}>
-          <Icon name="home" size={32} color={"white"} />
+          <Icon name="home" size={32} color={"white"} onPress={HomeHandler}/>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navbtn}>
-          <Icon name="user" size={32} color={"white"} />
+          <Icon name="user" size={32} color={"white"} onPress={ProfileHandler}/>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navbtn} onPress={() => setToggle(!toggle)}>
+        <TouchableOpacity style={styles.navbtn}>
+          <Icon name="search1" size={32} color={"white"} onPress={searchHandler}/>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navbtn}
+          onPress={() => setToggle(!toggle)}
+        >
           <Icon name="menufold" size={32} color={"white"} />
         </TouchableOpacity>
       </View>
