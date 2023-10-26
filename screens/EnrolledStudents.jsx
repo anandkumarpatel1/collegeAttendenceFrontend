@@ -60,6 +60,7 @@ const EnrolledStudents = () => {
                     semRollNo={student?.semRollNo}
                     semester={student?.semester}
                     present={student?.present}
+                    teachersArray = {student?.teacher}
                   />
                 ))}
               </ScrollView>

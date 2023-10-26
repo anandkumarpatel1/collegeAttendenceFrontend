@@ -1,9 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { enrollNewStudent, profileStudent } from "../Action/Teacher";
+import { allStudents, enrollNewStudent, profileStudent } from "../Action/Teacher";
 import { LinearGradient } from "expo-linear-gradient";
 import Loader from "../components/Loader";
+import { useNavigation } from "@react-navigation/native";
 
 const TeacherStudentProfile = (props) => {
   const [enroll, setEnroll] = useState(false);
@@ -12,7 +13,7 @@ const TeacherStudentProfile = (props) => {
 
   const { teacher } = useSelector((state) => state.teacher);
 
-
+  const navigation = useNavigation()
   useEffect(() => {
     setEnroll(false)
 
@@ -26,9 +27,11 @@ const TeacherStudentProfile = (props) => {
     dispatch(profileStudent(props.route.params.id));
   }, [dispatch]);
 
-  const enrollStudentHandler = () => {0
+  const enrollStudentHandler = () => {
     dispatch(enrollNewStudent(props.route.params.id));
-    setEnroll(true)
+
+    navigation.navigate('AllStudents')
+
   };
   return (
     <>
